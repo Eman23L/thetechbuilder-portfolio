@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Tech Builder Portfolio
 
-## Getting Started
+Premium personal portfolio website for Emmanuel Bamgbala, built with Next.js, React, TypeScript, Tailwind CSS, Framer Motion, and Lucide React.
 
-First, run the development server:
+## Run Locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## Edit Portfolio Text
 
-To learn more about Next.js, take a look at the following resources:
+Most editable content lives in:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+src/data/portfolio.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Update names, roles, summary text, stats, focus areas, projects, skills, experience, email, GitHub, LinkedIn, and CV path there.
 
-## Deploy on Vercel
+## Replace The CV
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Place the PDF in:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+public/cv/
+```
+
+The default link expects:
+
+```text
+public/cv/emmanuel-bamgbala-cv.pdf
+```
+
+If the filename changes, update `cvPath` in `src/data/portfolio.ts`.
+
+## Replace Images
+
+Place profile or project images in:
+
+```text
+public/images/
+```
+
+The hero currently uses an `EB` placeholder. Replace the placeholder block in `src/components/Hero.tsx` with `next/image` when a real image is ready.
+
+## Icons
+
+Static icons can be stored in:
+
+```text
+public/icons/
+```
+
+UI icons are currently provided by `lucide-react`.
+
+## Deploy To Vercel
+
+1. Push this project to GitHub.
+2. Create a new Vercel project.
+3. Import the GitHub repository.
+4. Keep the default Next.js build settings.
+5. Deploy.
+
+## Connect `thetechbuilder.co.uk`
+
+In Vercel:
+
+1. Open the project dashboard.
+2. Go to `Settings` > `Domains`.
+3. Add `thetechbuilder.co.uk`.
+4. Follow the DNS records Vercel provides.
+
+Typical DNS setup:
+
+```text
+A record     @      76.76.21.21
+CNAME        www    cname.vercel-dns.com
+```
+
+DNS changes can take time to propagate. Keep the domain registrar records aligned with the exact values Vercel shows for the project.

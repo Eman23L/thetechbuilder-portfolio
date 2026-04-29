@@ -12,16 +12,29 @@ export default function AnimatedCounter({ value, suffix = "" }: AnimatedCounterP
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const motionValue = useMotionValue(0);
+  const animationDuration = 1400;
   const spring = useSpring(motionValue, { duration: 1400, bounce: 0 });
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (inView) motionValue.set(value);
+    if (!inView) {
+      return;
+    }
+
+    motionValue.set(value);
+
+    const finalValue = window.setTimeout(() => {
+      setDisplay(value);
+    }, animationDuration);
+
+    return () => window.clearTimeout(finalValue);
   }, [inView, motionValue, value]);
 
   useEffect(() => {
-    return spring.on("change", (latest) => setDisplay(Math.round(latest)));
-  }, [spring]);
+    return spring.on("change", (latest) => {
+      setDisplay(Math.min(value, Math.round(latest)));
+    });
+  }, [spring, value]);
 
   return (
     <motion.span ref={ref} className="text-4xl font-semibold text-slate-950 dark:text-white sm:text-5xl">

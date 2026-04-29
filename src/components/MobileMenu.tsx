@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { navItems, portfolio } from "@/data/portfolio";
@@ -10,16 +11,30 @@ type MobileMenuProps = {
 };
 
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   return (
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-50 bg-slate-50/96 px-5 py-5 backdrop-blur-xl dark:bg-slate-950/96 md:hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] overflow-y-auto bg-white px-5 pb-8 pt-20 dark:bg-slate-950 md:hidden"
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -16 }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
         >
-          <div className="flex items-center justify-between">
+          <div className="absolute inset-x-5 top-5 flex items-center justify-between">
             <span className="text-sm font-semibold tracking-[0.24em] text-cyan-700 dark:text-cyan-300">
               {portfolio.brand}
             </span>
@@ -31,7 +46,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               <X className="size-5" />
             </button>
           </div>
-          <nav className="mt-14 grid gap-4">
+          <nav className="grid gap-4">
             {navItems.map((item) => (
               <a
                 key={item.href}

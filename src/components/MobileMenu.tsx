@@ -28,25 +28,25 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-[9999] overflow-y-auto bg-white px-6 pb-8 pt-28 dark:bg-slate-950 md:hidden"
+          className="pointer-events-auto fixed inset-0 z-[99999] min-h-screen overflow-y-auto bg-white px-6 pb-8 pt-28 dark:bg-slate-950 md:hidden"
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
         >
-          <div className="absolute inset-x-6 top-5 z-[10000] flex items-center justify-between">
+          <div className="absolute inset-x-6 top-5 z-[100001] flex items-center justify-between">
             <span className="text-sm font-semibold tracking-[0.24em] text-cyan-700 dark:text-cyan-300">
               {portfolio.brand}
             </span>
             <button
               aria-label="Close menu"
-              className="z-[10000] grid size-11 place-items-center rounded-full border border-slate-900/10 text-slate-800 dark:border-white/10 dark:text-slate-100"
+              className="z-[100001] grid size-11 place-items-center rounded-full border border-slate-900/10 text-slate-800 dark:border-white/10 dark:text-slate-100"
               onClick={onClose}
             >
               <X className="size-5" />
             </button>
           </div>
-          <nav className="flex flex-col gap-4">
+          <nav className="relative z-[100000] flex flex-col gap-4">
             {navItems.map((item) => (
               <a
                 key={item.href}

@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, GitBranch } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -9,7 +9,10 @@ type Project = {
   title: string;
   description: string;
   stack: readonly string[];
+  github?: string;
 };
+
+const isProjectLink = (value: string) => value.startsWith("http://") || value.startsWith("https://");
 
 export default function ProjectAccordion({ projects }: { projects: readonly Project[] }) {
   const [active, setActive] = useState(0);
@@ -39,6 +42,24 @@ export default function ProjectAccordion({ projects }: { projects: readonly Proj
                         </span>
                       ))}
                     </div>
+                    {project.github ? (
+                      <div className="mt-5">
+                        {isProjectLink(project.github) ? (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-slate-900/10 px-3 py-1 text-sm font-medium text-slate-700 transition hover:border-cyan-500/50 hover:bg-cyan-500/10 dark:border-white/10 dark:text-slate-200 dark:hover:border-cyan-300/50 dark:hover:bg-white/5"
+                          >
+                            <GitBranch className="size-4" /> GitHub
+                          </a>
+                        ) : (
+                          <span className="inline-flex items-center gap-2 rounded-full border border-slate-900/10 px-3 py-1 text-sm font-medium text-slate-500 dark:border-white/10 dark:text-slate-400">
+                            <GitBranch className="size-4" /> GitHub: {project.github}
+                          </span>
+                        )}
+                      </div>
+                    ) : null}
                   </div>
                 </motion.div>
               ) : null}

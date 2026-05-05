@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 type AnimatedCounterProps = {
@@ -11,9 +11,6 @@ type AnimatedCounterProps = {
 export default function AnimatedCounter({ value, suffix = "" }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const motionValue = useMotionValue(0);
-  const animationDuration = 1400;
-  const spring = useSpring(motionValue, { duration: 1400, bounce: 0 });
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
@@ -21,25 +18,30 @@ export default function AnimatedCounter({ value, suffix = "" }: AnimatedCounterP
       return;
     }
 
-    motionValue.set(value);
+    const animationDuration = 1400;
+    const start = performance.now();
+    let frame = 0;
 
-    const finalValue = window.setTimeout(() => {
-      setDisplay(value);
-    }, animationDuration);
+    const animate = (now: number) => {
+      const progress = Math.min((now - start) / animationDuration, 1);
+      const nextValue = progress === 1 ? value : Math.round(value * progress);
 
-    return () => window.clearTimeout(finalValue);
-  }, [inView, motionValue, value]);
+      setDisplay(nextValue);
 
-  useEffect(() => {
-    return spring.on("change", (latest) => {
-      setDisplay(Math.min(value, Math.round(latest)));
-    });
-  }, [spring, value]);
+      if (progress < 1) {
+        frame = requestAnimationFrame(animate);
+      }
+    };
+
+    frame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(frame);
+  }, [inView, value]);
 
   return (
-    <motion.span ref={ref} className="text-4xl font-semibold text-slate-950 dark:text-white sm:text-5xl">
+    <span ref={ref} className="text-4xl font-semibold text-slate-950 dark:text-white sm:text-5xl">
       {display}
       {suffix}
-    </motion.span>
+    </span>
   );
 }

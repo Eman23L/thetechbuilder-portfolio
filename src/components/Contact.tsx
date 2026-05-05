@@ -1,4 +1,4 @@
-import { Code2, Mail, Network } from "lucide-react";
+import { Code2, Download, Mail, Network } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
 import { portfolio } from "@/data/portfolio";
 
@@ -22,6 +22,13 @@ export default function Contact() {
       value: "Connect on LinkedIn",
       href: portfolio.linkedin,
       icon: Network,
+      external: true,
+    },
+    {
+      label: "Download CV",
+      value: "Open CV",
+      href: portfolio.cvPath,
+      icon: Download,
       external: true,
     },
   ];

@@ -24,7 +24,18 @@ export default function ExperienceTimeline() {
                 <CalendarDays className="size-4" /> {item.period}
               </span>
             </div>
-            <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">{item.detail}</p>
+            <div className="mt-4 grid gap-3 leading-7 text-slate-600 dark:text-slate-300">
+              {item.detail.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            {item.highlights ? (
+              <ul className="mt-4 grid gap-2 leading-7 text-slate-600 dark:text-slate-300">
+                {item.highlights.map((highlight) => (
+                  <li key={highlight}>- {highlight}</li>
+                ))}
+              </ul>
+            ) : null}
           </article>
         ))}
       </div>

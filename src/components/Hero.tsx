@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, BriefcaseBusiness, Mail } from "lucide-react";
+import { ArrowDown, BriefcaseBusiness, Mail, UserRound } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { portfolio } from "@/data/portfolio";
 
@@ -9,6 +10,8 @@ export default function Hero() {
   const roles = useMemo(() => portfolio.typingRoles, []);
   const [roleIndex, setRoleIndex] = useState(0);
   const [letters, setLetters] = useState("");
+  const [headshotMissing, setHeadshotMissing] = useState(false);
+  const headshotSrc = "/images/emmanuel-headshot.jpg";
 
   useEffect(() => {
     const active = roles[roleIndex];
@@ -54,12 +57,20 @@ export default function Hero() {
           <div className="glass-card relative aspect-square overflow-hidden rounded-2xl p-6">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(34,211,238,0.2),transparent_36%)]" />
             <div className="relative flex h-full flex-col items-center justify-center rounded-xl border border-cyan-500/20 bg-white/55 text-center dark:border-cyan-300/20 dark:bg-slate-950/50">
-              {/* Replace this placeholder with a real profile image in public/images. */}
-              <div className="grid size-36 place-items-center rounded-full border border-cyan-500/30 bg-gradient-to-br from-white to-slate-200 text-5xl font-bold text-cyan-700 shadow-2xl shadow-cyan-900/10 dark:border-cyan-300/30 dark:from-slate-800 dark:to-slate-950 dark:text-cyan-200 dark:shadow-cyan-950/40">
-                EB
-              </div>
-              <p className="mt-6 text-2xl font-semibold text-slate-950 dark:text-white">{portfolio.name}</p>
-              <p className="mt-2 text-sm uppercase tracking-[0.3em] text-cyan-700 dark:text-cyan-200">{portfolio.brand}</p>
+              {headshotMissing ? (
+                <div className="grid size-36 place-items-center rounded-full border border-cyan-500/30 bg-gradient-to-br from-white to-slate-200 text-cyan-700 shadow-2xl shadow-cyan-900/10 dark:border-cyan-300/30 dark:from-slate-800 dark:to-slate-950 dark:text-cyan-200 dark:shadow-cyan-950/40">
+                  <UserRound className="size-16" />
+                </div>
+              ) : (
+                <Image
+                  src={headshotSrc}
+                  alt={`${portfolio.name} headshot`}
+                  width={224}
+                  height={224}
+                  className="size-56 rounded-full border border-cyan-500/30 object-cover shadow-2xl shadow-cyan-900/10 dark:border-cyan-300/30 dark:shadow-cyan-950/40"
+                  onError={() => setHeadshotMissing(true)}
+                />
+              )}
             </div>
           </div>
         </motion.div>

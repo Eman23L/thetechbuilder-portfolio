@@ -13,7 +13,7 @@ export default function Contact() {
     {
       label: "GitHub",
       value: "View my GitHub",
-      href: portfolio.github,
+      href: `${portfolio.github}?tab=repositories`,
       icon: Code2,
       external: true,
     },
@@ -39,9 +39,9 @@ export default function Contact() {
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-700 dark:text-cyan-300">CONTACT ME</p>
-            <h2 className="mt-4 text-3xl font-semibold text-slate-950 dark:text-white sm:text-4xl">Build the next revolutionary tool.</h2>
+            <h2 className="mt-4 text-3xl font-semibold text-slate-950 dark:text-white sm:text-4xl">Build the next revolutionary idea.</h2>
             <p className="mt-5 leading-8 text-slate-600 dark:text-slate-300">
-              Available for software engineering, automation, dashboards, web platforms, and digital solution delivery.
+              Ready to turn bold ideas into practical digital systems, automation tools, dashboards, and scalable software products.
             </p>
           </div>
           <div className="grid gap-4">

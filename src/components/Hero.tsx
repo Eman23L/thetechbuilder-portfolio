@@ -65,9 +65,9 @@ export default function Hero() {
                 <Image
                   src={headshotSrc}
                   alt={`${portfolio.name} headshot`}
-                  width={224}
-                  height={224}
-                  className="size-56 rounded-full border border-cyan-500/30 object-cover shadow-2xl shadow-cyan-900/10 dark:border-cyan-300/30 dark:shadow-cyan-950/40"
+                  width={320}
+                  height={320}
+                  className="size-48 rounded-full border border-cyan-500/30 object-cover object-top shadow-2xl shadow-cyan-900/10 dark:border-cyan-300/30 dark:shadow-cyan-950/40 sm:size-64 lg:size-72"
                   onError={() => setHeadshotMissing(true)}
                 />
               )}

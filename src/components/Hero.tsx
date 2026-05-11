@@ -11,7 +11,7 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [letters, setLetters] = useState("");
   const [headshotMissing, setHeadshotMissing] = useState(false);
-  const headshotSrc = "/images/emmanuel-headshot.jpg";
+  const headshotSrc = "/images/profile.jpg";
 
   useEffect(() => {
     const active = roles[roleIndex];

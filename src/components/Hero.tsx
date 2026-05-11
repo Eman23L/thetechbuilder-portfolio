@@ -56,7 +56,7 @@ export default function Hero() {
         <motion.div className="relative mx-auto w-full max-w-md" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }}>
           <div className="glass-card relative aspect-square overflow-hidden rounded-2xl p-6">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(34,211,238,0.2),transparent_36%)]" />
-            <div className="relative flex h-full flex-col items-center justify-center rounded-xl border border-cyan-500/20 bg-white/55 text-center dark:border-cyan-300/20 dark:bg-slate-950/50">
+            <div className="relative flex h-full flex-col items-center justify-center overflow-hidden rounded-xl border border-cyan-500/20 bg-white/55 text-center dark:border-cyan-300/20 dark:bg-slate-950/50">
               {headshotMissing ? (
                 <div className="grid size-36 place-items-center rounded-full border border-cyan-500/30 bg-gradient-to-br from-white to-slate-200 text-cyan-700 shadow-2xl shadow-cyan-900/10 dark:border-cyan-300/30 dark:from-slate-800 dark:to-slate-950 dark:text-cyan-200 dark:shadow-cyan-950/40">
                   <UserRound className="size-16" />
@@ -65,9 +65,9 @@ export default function Hero() {
                 <Image
                   src={headshotSrc}
                   alt={`${portfolio.name} headshot`}
-                  width={320}
-                  height={320}
-                  className="size-48 rounded-full border border-cyan-500/30 object-cover object-top shadow-2xl shadow-cyan-900/10 dark:border-cyan-300/30 dark:shadow-cyan-950/40 sm:size-64 lg:size-72"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 448px"
+                  className="rounded-xl object-cover object-top shadow-2xl shadow-cyan-900/10 dark:shadow-cyan-950/40"
                   onError={() => setHeadshotMissing(true)}
                 />
               )}

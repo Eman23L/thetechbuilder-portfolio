@@ -67,7 +67,8 @@ export default function Hero() {
                   alt={`${portfolio.name} headshot`}
                   fill
                   sizes="(max-width: 1024px) 100vw, 448px"
-                  className="rounded-xl object-cover object-top shadow-2xl shadow-cyan-900/10 dark:shadow-cyan-950/40"
+                  className="rounded-xl object-cover shadow-2xl shadow-cyan-900/10 dark:shadow-cyan-950/40"
+                  style={{ objectPosition: "center center" }}
                   onError={() => setHeadshotMissing(true)}
                 />
               )}

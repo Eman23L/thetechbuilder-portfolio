@@ -11,9 +11,14 @@ type AnimatedCounterProps = {
 export default function AnimatedCounter({ value, suffix = "" }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [display, setDisplay] = useState(0);
+  const shouldAnimate = value > 1;
+  const [display, setDisplay] = useState(shouldAnimate ? 0 : value);
 
   useEffect(() => {
+    if (!shouldAnimate) {
+      return;
+    }
+
     if (!inView) {
       return;
     }
@@ -36,7 +41,7 @@ export default function AnimatedCounter({ value, suffix = "" }: AnimatedCounterP
     frame = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(frame);
-  }, [inView, value]);
+  }, [inView, shouldAnimate, value]);
 
   return (
     <span ref={ref} className="text-4xl font-semibold text-slate-950 dark:text-white sm:text-5xl">

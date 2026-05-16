@@ -35,7 +35,7 @@ export default function Hero() {
             {portfolio.role} / {portfolio.brand}
           </p>
           <h1 className="max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
-            Hi, I&apos;m <span className="gradient-text">Emmanuel Ayomikun Bamgbala</span>
+            Hi, I&apos;m <span className="gradient-text">Emmanuel Bamgbala</span>
           </h1>
           <div className="mt-6 h-9 text-xl font-medium text-cyan-700 dark:text-cyan-200 sm:text-2xl">
             {letters}

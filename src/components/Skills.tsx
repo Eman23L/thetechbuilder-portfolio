@@ -1,29 +1,38 @@
-"use client";
-
-import { motion } from "framer-motion";
+import SectionHeading from "@/components/SectionHeading";
 import SectionReveal from "@/components/SectionReveal";
 import { portfolio } from "@/data/portfolio";
 
 export default function Skills() {
   return (
-    <SectionReveal id="skills" className="section-shell py-20">
-      <div className="mb-8 max-w-2xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-700 dark:text-cyan-300">Skills</p>
-        <h2 className="mt-4 text-3xl font-semibold text-slate-950 dark:text-white sm:text-4xl">Tools used to build durable systems.</h2>
-      </div>
-      <div className="flex flex-wrap gap-3">
-        {portfolio.skills.map((skill, index) => (
-          <motion.span
-            key={skill}
-            className="rounded-full border border-slate-900/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-lg shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:shadow-black/10"
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.025 }}
-            whileHover={{ y: -3, borderColor: "rgba(34,211,238,0.55)" }}
-          >
-            {skill}
-          </motion.span>
+    <SectionReveal id="skills" className="section-shell py-16 sm:py-24">
+      <SectionHeading
+        index="04"
+        label="Toolkit"
+        title={
+          <>
+            Tools for building <span className="font-serif font-normal italic">durable</span> systems.
+          </>
+        }
+      />
+      <div className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-5">
+        {portfolio.skillGroups.map((group, i) => (
+          <div key={group.label} className="bg-surface p-6 sm:p-7">
+            <p className="flex items-center justify-between font-mono text-xs text-muted">
+              <span>{group.label}</span>
+              <span className="text-accent">{String(i + 1).padStart(2, "0")}</span>
+            </p>
+            <ul className="mt-6 grid gap-2.5">
+              {group.items.map((skill) => (
+                <li
+                  key={skill}
+                  className="group flex items-center gap-2.5 font-display text-xl font-semibold leading-tight text-ink"
+                >
+                  <span className="size-1.5 shrink-0 rounded-full bg-line transition-colors group-hover:bg-accent" />
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">{skill}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
     </SectionReveal>

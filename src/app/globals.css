@@ -2,21 +2,70 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ------------------------------------------------------------------
+   Design tokens
+   Warm paper + ink, with a single "hi-vis" builder orange accent.
+------------------------------------------------------------------- */
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --bg: #f3efe6;
+  --surface: #fbf9f4;
+  --surface-2: #ebe6da;
+  --ink: #16150f;
+  --muted: #625e53;
+  --line: rgba(22, 21, 15, 0.13);
+  --accent: #ff5a1f;
+  --accent-soft: rgba(255, 90, 31, 0.12);
+  --on-accent: #16150f;
+  --invert-bg: #16150f;
+  --invert-ink: #f3efe6;
+  color-scheme: light;
 }
 
 .dark {
-  --background: #030712;
-  --foreground: #f8fafc;
+  --bg: #0f0e0b;
+  --surface: #191813;
+  --surface-2: #22201a;
+  --ink: #f1ece1;
+  --muted: #a29d90;
+  --line: rgba(241, 236, 225, 0.12);
+  --accent: #ff6b2c;
+  --accent-soft: rgba(255, 107, 44, 0.14);
+  --on-accent: #0f0e0b;
+  --invert-bg: #f1ece1;
+  --invert-ink: #0f0e0b;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-invert-bg: var(--invert-bg);
+  --color-invert-ink: var(--invert-ink);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display-face);
+  --font-serif: var(--font-serif-face);
+  --font-mono: var(--font-mono-face);
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-marquee-reverse: marquee 44s linear infinite reverse;
+  --animate-spin-slow: spin 18s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 * {
@@ -25,55 +74,102 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--background);
+  scroll-padding-top: 96px;
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
-  background: rgba(34, 211, 238, 0.35);
-  color: #ffffff;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
-.glass-card {
-  border: 1px solid rgba(15, 23, 42, 0.1);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(241, 245, 249, 0.62));
-  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.1);
-  backdrop-filter: blur(18px);
-}
-
-.dark .glass-card {
-  border-color: rgba(148, 163, 184, 0.18);
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.78), rgba(2, 6, 23, 0.58));
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 .section-shell {
-  width: min(1120px, calc(100% - 32px));
+  width: min(1200px, calc(100% - 40px));
   margin-inline: auto;
 }
 
-.gradient-text {
-  background: linear-gradient(90deg, #0f172a, #2563eb 45%, #0891b2);
-  -webkit-background-clip: text;
-  background-clip: text;
+.font-display {
+  font-family: var(--font-display-face), var(--font-body), sans-serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.035em;
+}
+
+.font-serif {
+  font-family: var(--font-serif-face), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+/* Faint drafting grid, used behind the hero */
+.blueprint-grid {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 35%, #000 30%, transparent 75%);
+}
+
+/* Film-grain texture for warmth */
+.grain::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.dark .grain::after {
+  opacity: 0.07;
+}
+
+/* Diagonal hatch, used in project artwork */
+.hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    currentColor 0 1px,
+    transparent 1px 10px
+  );
+}
+
+.dots {
+  background-image: radial-gradient(currentColor 1.2px, transparent 1.2px);
+  background-size: 14px 14px;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.text-outline {
   color: transparent;
+  -webkit-text-stroke: 1.5px var(--ink);
 }
 
-.dark .gradient-text {
-  background-image: linear-gradient(90deg, #ffffff, #93c5fd 45%, #22d3ee);
-}
-
-.noise-layer {
-  background-image: radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.dark .noise-layer {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .animate-spin-slow {
+    animation: none !important;
+  }
 }

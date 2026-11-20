@@ -44,9 +44,9 @@ export default function AnimatedCounter({ value, suffix = "" }: AnimatedCounterP
   }, [inView, shouldAnimate, value]);
 
   return (
-    <span ref={ref} className="text-4xl font-semibold text-slate-950 dark:text-white sm:text-5xl">
+    <span ref={ref} className="tabular-nums">
       {display}
-      {suffix}
+      <span className="text-accent">{suffix}</span>
     </span>
   );
 }
